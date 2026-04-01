@@ -40,4 +40,13 @@ public class Comment {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "content='" + content + '\'' +
+                ", author=" + author.getName() +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

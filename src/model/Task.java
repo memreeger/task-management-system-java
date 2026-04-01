@@ -54,10 +54,27 @@ public class Task {
         this.assignee = user;
     }
 
+    public void unassignUser() {
+        this.assignee = null;
+    }
+
     public boolean isOverdue() {
         return deadline.isBefore(LocalDateTime.now()) && status != TaskStatus.DONE;
     }
 
+    public void addComment(Comment comment) {
+        if (comment == null) {
+            throw new IllegalArgumentException("Comment cannot be null");
+        }
+        comments.add(comment);
+    }
+
+    public void updatePriority(Priority priority) {
+        if (priority == null) {
+            throw new IllegalArgumentException("Priority cannot be null");
+        }
+        this.priority = priority;
+    }
 
     public String getId() {
         return id;
@@ -68,7 +85,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return description == null ? "" : description;
+        return description;
     }
 
     public TaskStatus getStatus() {
@@ -89,5 +106,33 @@ public class Task {
 
     public LocalDateTime getDeadline() {
         return deadline;
+    }
+
+    public List<Comment> getComments() {
+        return new ArrayList<>(comments);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", status=" + status +
+                ", priority=" + priority +
+                ", assignee=" + (assignee != null ? assignee.getName() : "none") +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return id.equals(task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

@@ -59,11 +59,11 @@ public class User {
         if (!(o instanceof User)) return false;
 
         User user = (User) o;
-        return id != null && id.equals(user.id);
+        return email != null && email.equalsIgnoreCase(user.email);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return email.toLowerCase().hashCode();
     }
 }
